@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+>
+	<f:view contentType="text/html" encoding="UTF-8" locale="en_US">
+		<h:head>
+			<meta charset="utf-8" /> 
+			<title>My commissions</title>
+		</h:head>
+		<h:body>
+			<h:form id="myCommissionsForm">
+				<p:dataTable 
+					id="mycommissions"
+					value="#{myCommissionsController.commissionSessionStore.commissionSessionList}"
+					var="commission" 
+					selection="#{commissionSession}"
+					selectionMode="single" 
+					rowKey="#{commission.idCommissionSession}"
+				>
+					<p:ajax event="rowSelect" listener="#{myCommissionsController.onSelectOneRow}" update=":commissionDetail" oncomplete="PF('commissionDetail').show()"/>
+					<p:column headerText="Commission Session">
+						 <h:outputText value="#{commission.session}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+			<p:dialog 
+				header="Commission Detail" 
+				closeOnEscape="true"  
+				widgetVar="commissionDetail" 
+				id="commissionDetail" 
+				modal="true" 
+			>	
+				<p:ajax event="close" update=":myCommissionsForm:mycommissions" />
+				<ui:include src="/views/widgets/commission_detail_edit.xhtml" />
+			</p:dialog>	
+		</h:body>
+	</f:view>
+</html>

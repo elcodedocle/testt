@@ -1,0 +1,33 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <h:form id="manageCommissionSession">
+	    <p:dataTable 
+	        id="commissionSessionIssues"
+	        value="#{selectedCommissionSession.issues}"
+	        var="tissue" 
+	        selection="#{issue}"
+	        selectionMode="single" 
+	        rowKey="#{tissue.idIssue}"
+	    >
+	        <p:ajax event="rowSelect" listener="#{myIssuesController.onSelectOneRow}" update=":issueDetail" oncomplete="PF('issueDetail').show();"/>
+	        <p:column headerText="Issue Title">
+	            <h:outputText value="#{tissue.title}" />
+	        </p:column>
+	    </p:dataTable>
+    </h:form>
+    <p:dialog 
+        closeOnEscape="true" 
+        widgetVar="issueDetail" 
+        id="issueDetail" 
+        modal="true" 
+        appendTo="@(body)" 
+	>   
+        <p:ajax event="close" update=":manageCommissionSession:commissionSessionIssues" />
+        <ui:include src="/views/widgets/issue_detail_edit.xhtml" />
+	</p:dialog>
+</ui:composition>

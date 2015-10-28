@@ -1,0 +1,37 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <h:form id="manageIssue" styleClass="manageIssueClass">
+        <p:commandButton 
+            id="saveNewEventButton" 
+            value="Add Event" 
+            action="#{myIssuesController.addIssueEvent}" 
+            process="@this @(.newEventCommentClass)" 
+            update="@this @(.issueEventsClass)"
+        />
+        <br />
+        <p:inputTextarea 
+            id="newEventComment" 
+            styleClass="newEventCommentClass" 
+            value="#{event.comment}" 
+            onkeyup="$('.newEventCommentClass').val($(this).val())"
+        />
+        <p:dataTable 
+            id="issueEvents"
+            styleClass="issueEventsClass"
+            value="#{selectedIssue.events}"
+            var="tevent"
+        >
+            <p:column headerText="Event Date">
+                <h:outputText value="#{tevent.eventDate}" />
+            </p:column>
+            <p:column headerText="Comment">
+                <h:outputText value="#{tevent.comment}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</ui:composition>
