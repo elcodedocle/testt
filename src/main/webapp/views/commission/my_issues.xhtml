@@ -18,7 +18,7 @@
 					var="tissue" 
 					selection="#{issue}"
 					selectionMode="single" 
-					rowKey="#{issue.idIssue}"
+					rowKey="#{tissue.idIssue}"
 				>
 					<p:ajax event="rowSelect" listener="#{myIssuesController.onSelectOneRow}" update=":issueDetail" oncomplete="PF('issueDetail').show()"/>
 					<p:column headerText="Issue Title">
