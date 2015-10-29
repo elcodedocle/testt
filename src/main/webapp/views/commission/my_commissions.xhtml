@@ -36,6 +36,16 @@
 				<p:ajax event="close" update=":myCommissionsForm:mycommissions" />
 				<ui:include src="/views/widgets/commission_detail_edit.xhtml" />
 			</p:dialog>	
+		    <p:dialog 
+		        closeOnEscape="true" 
+		        widgetVar="issueDetail" 
+		        id="issueDetail" 
+		        modal="true" 
+		        appendTo="@(body)" 
+			>   
+		        <p:ajax event="close" update=":manageCommissionSession:commissionSessionIssues" />
+		        <ui:include src="/views/widgets/issue_detail_edit.xhtml" />
+			</p:dialog>
 		</h:body>
 	</f:view>
 </html>
